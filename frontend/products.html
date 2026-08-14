@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Catalog — DIGItal Duniya</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/products.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar" id="main-navbar">
+    <div class="container navbar-inner">
+      <a href="index.html" class="nav-logo">
+        <span>DIGItal</span><span>Duniya</span>
+      </a>
+
+      <button class="hamburger" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-links" id="nav-menu">
+        <li><a href="index.html" class="nav-link" data-i18n="home">Home</a></li>
+        <li><a href="products.html" class="nav-link active" data-i18n="products">Products</a></li>
+        <li><a href="about.html" class="nav-link" data-i18n="about">About</a></li>
+        <li><a href="contact.html" class="nav-link" data-i18n="contact">Contact</a></li>
+        <li><a href="feedback.html" class="nav-link" data-i18n="feedback">Feedback</a></li>
+      </ul>
+
+      <div class="nav-search">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Search products..." data-search-input data-i18n="search">
+        <div class="suggestion-box" data-search-suggestions style="position: absolute; width: 100%; top: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); z-index: 100;"></div>
+      </div>
+
+      <div class="nav-actions">
+        <select class="btn btn-ghost btn-sm" id="lang-selector" data-lang-select>
+          <option value="en">EN</option>
+          <option value="hi">हिन्दी</option>
+        </select>
+        <button class="nav-icon-btn" id="theme-toggle" data-theme-icon>🌙</button>
+        <a href="login.html" class="btn btn-outline btn-sm" data-auth="guest" data-i18n="login">Login</a>
+        <a href="signup.html" class="btn btn-primary btn-sm" data-auth="guest" data-i18n="signup">Sign Up</a>
+        <a href="wishlist.html" class="nav-icon-btn hidden" data-auth="user">❤️</a>
+        <a href="cart.html" class="nav-icon-btn hidden" data-auth="user">
+          🛒<span class="nav-badge" data-cart-count style="display: none;">0</span>
+        </a>
+        <a href="profile.html" class="nav-link hidden" data-auth="user"><span data-user-name>User</span></a>
+        <a href="orders.html" class="nav-link hidden" data-auth="user" data-i18n="orders">Orders</a>
+        <a href="#" class="btn btn-ghost btn-sm hidden" id="logout-btn" data-auth="user" data-i18n="logout">Logout</a>
+        <a href="admin/dashboard.html" class="btn btn-teal btn-sm hidden" data-auth="admin" data-i18n="adminDashboard">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="sep">&rsaquo;</span>
+      <span class="current">Products</span>
+    </div>
+  </div>
+
+  <!-- Page Content -->
+  <main class="container section" style="padding-top: 16px;">
+    <div class="products-page-layout">
+      
+      <!-- Filters Sidebar -->
+      <aside class="filters-sidebar" id="filters-sidebar">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+          <h3 style="font-weight:700;" data-i18n="filters">Filters</h3>
+          <button class="btn btn-ghost btn-sm" id="clear-filters-btn" style="padding:4px 8px; font-size:0.75rem;">Clear All</button>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="filter-section">
+          <h4 class="filter-title" data-i18n="category">Category</h4>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <label class="filter-option">
+              <input type="checkbox" data-filter="category" value="Technology">
+              <label>Technology</label>
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" data-filter="category" value="Fashion">
+              <label>Fashion</label>
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" data-filter="category" value="Home">
+              <label>Home</label>
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" data-filter="category" value="Lifestyle">
+              <label>Lifestyle</label>
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" data-filter="category" value="Gaming">
+              <label>Gaming</label>
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" data-filter="category" value="Accessories">
+              <label>Accessories</label>
+            </label>
+          </div>
+        </div>
+
+        <!-- Brand Filter (Dynamic) -->
+        <div class="filter-section">
+          <h4 class="filter-title">Brand</h4>
+          <div style="display:flex; flex-direction:column; gap:8px;" data-brand-filters>
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Price Range Filter -->
+        <div class="filter-section">
+          <h4 class="filter-title">Price Range</h4>
+          <div class="filter-range" style="margin-bottom:12px;">
+            <input type="number" placeholder="Min" data-filter="min-price">
+            <input type="number" placeholder="Max" data-filter="max-price">
+          </div>
+          <!-- Preset price intervals -->
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <label class="filter-option">
+              <input type="radio" name="price-preset" value="0-500">
+              <label>Under ₹500</label>
+            </label>
+            <label class="filter-option">
+              <input type="radio" name="price-preset" value="500-1000">
+              <label>₹500 – ₹1,000</label>
+            </label>
+            <label class="filter-option">
+              <input type="radio" name="price-preset" value="1000-5000">
+              <label>₹1,000 – ₹5,000</label>
+            </label>
+            <label class="filter-option">
+              <input type="radio" name="price-preset" value="5000-10000">
+              <label>₹5,000 – ₹10,000</label>
+            </label>
+            <label class="filter-option">
+              <input type="radio" name="price-preset" value="10000-999999">
+              <label>Above ₹10,000</label>
+            </label>
+          </div>
+        </div>
+
+        <!-- Color Filter (Dynamic) -->
+        <div class="filter-section">
+          <h4 class="filter-title">Color</h4>
+          <div style="display:flex; flex-direction:column; gap:8px;" data-color-filters>
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Rating Filter -->
+        <div class="filter-section">
+          <h4 class="filter-title">Customer Rating</h4>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <label class="filter-option">
+              <input type="radio" name="rating-filter" data-filter="rating" value="4">
+              <label>4★ &amp; above</label>
+            </label>
+            <label class="filter-option">
+              <input type="radio" name="rating-filter" data-filter="rating" value="3">
+              <label>3★ &amp; above</label>
+            </label>
+          </div>
+        </div>
+
+        <!-- Status Filter -->
+        <div class="filter-section">
+          <h4 class="filter-title">Product Status</h4>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <label class="filter-option">
+              <input type="checkbox" data-filter="new">
+              <label>New Arrivals</label>
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" data-filter="trending">
+              <label>Trending</label>
+            </label>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" id="apply-filters-btn" style="width:100%; margin-top:10px; justify-content:center;">Apply Filters</button>
+      </aside>
+
+      <!-- Products Content -->
+      <div>
+        <div class="products-header">
+          <div class="products-count" id="products-count-text">Showing 0 products</div>
+          
+          <div style="display:flex; gap:12px; align-items:center;">
+            <!-- Mobile Filters Toggle -->
+            <button class="btn btn-outline btn-sm mobile-filter-toggle" id="mobile-filter-toggle-btn">
+              <span>Filters</span> ⚙️
+            </button>
+
+            <!-- Sorting Select -->
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:0.88rem; color:var(--text-muted);" data-i18n="sortBy">Sort By</span>
+              <select class="sort-select" data-sort-select>
+                <option value="newest" data-i18n="newest">Newest</option>
+                <option value="price_asc" data-i18n="priceLowHigh">Price: Low &rarr; High</option>
+                <option value="price_desc" data-i18n="priceHighLow">Price: High &rarr; Low</option>
+                <option value="rating" data-i18n="highestRated">Highest Rated</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Filter Badges -->
+        <div class="active-filters" id="active-filters-container"></div>
+
+        <!-- Products Grid -->
+        <div class="products-grid" id="catalog-products-container">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Pagination -->
+        <div style="display:flex; justify-content:center; gap:8px; margin-top:40px;" id="pagination-container">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-bottom" style="border:none; padding:0;">
+        <p>&copy; 2026 DIGItal Duniya. All rights reserved.</p>
+        <p>Vanilla Stack E-Commerce Portfolio.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module">
+    import api from './js/api.js';
+    import { updateNavAuth, logout } from './js/auth.js';
+    import { toggleTheme } from './js/theme.js';
+    import { getLang, setLang } from './js/language.js';
+    import { productCardHTML, skeletonCards, toggleWishlist, addToCartHelper, updateCartBadge } from './js/products.js';
+    import { getSelectedFilters, populateFilterOptions } from './js/filters.js';
+    import './js/search.js';
+
+    let currentPage = 1;
+    const limit = 12;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // 1. Auth & Theme setup
+      const user = await updateNavAuth();
+      await updateCartBadge();
+
+      document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
+      document.getElementById('lang-selector')?.addEventListener('change', (e) => {
+        setLang(e.target.value);
+      });
+
+      // 2. Fetch Filter Metadata
+      try {
+        const metaRes = await api.products.getMeta();
+        populateFilterOptions(metaRes.data);
+      } catch (err) {
+        console.error('Failed to load filters metadata', err);
+      }
+
+      // Check URL query parameters for search/category preset
+      presetFiltersFromUrl();
+
+      // 3. Load catalog
+      await loadCatalog();
+
+      // 4. Setup interaction listeners
+      document.getElementById('apply-filters-btn')?.addEventListener('click', async () => {
+        currentPage = 1;
+        await loadCatalog();
+        // Hide sidebar on mobile
+        document.getElementById('filters-sidebar').classList.remove('open');
+      });
+
+      document.getElementById('clear-filters-btn')?.addEventListener('click', async () => {
+        clearAllFilters();
+        currentPage = 1;
+        await loadCatalog();
+      });
+
+      document.querySelector('[data-sort-select]').addEventListener('change', async () => {
+        currentPage = 1;
+        await loadCatalog();
+      });
+
+      // Setup Price Presets
+      document.querySelectorAll('[name="price-preset"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          const [min, max] = e.target.value.split('-');
+          document.querySelector('[data-filter="min-price"]').value = min;
+          document.querySelector('[data-filter="max-price"]').value = max;
+        });
+      });
+
+      // Mobile toggles
+      document.getElementById('mobile-filter-toggle-btn')?.addEventListener('click', () => {
+        document.getElementById('filters-sidebar').classList.toggle('open');
+      });
+
+      document.getElementById('logout-btn')?.addEventListener('click', async (e) => {
+        e.preventDefault();
+        await logout();
+      });
+    });
+
+    async function loadCatalog() {
+      const container = document.getElementById('catalog-products-container');
+      if (!container) return;
+
+      container.innerHTML = skeletonCards(6);
+
+      const filters = getSelectedFilters();
+      filters.page = currentPage;
+      filters.limit = limit;
+
+      // Extract search from URL if present
+      const urlParams = new URLSearchParams(window.location.search);
+      const search = urlParams.get('search');
+      if (search) {
+        filters.search = search;
+      }
+
+      try {
+        const res = await api.products.getAll(filters);
+        const products = res.data;
+        const total = res.pagination.total;
+
+        document.getElementById('products-count-text').textContent = `Showing ${products.length} of ${total} products`;
+
+        if (products.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state" style="grid-column:1/-1;">
+              <span class="empty-state-icon">🔍</span>
+              <h3>No products found</h3>
+              <p>Try refining your search queries or clearing filters.</p>
+              <button class="btn btn-outline" onclick="window.location.href='products.html'">Clear All Search/Filters</button>
+            </div>
+          `;
+          document.getElementById('pagination-container').innerHTML = '';
+          return;
+        }
+
+        // Fetch wishlist IDs to render heart indicators properly
+        let wishlistIds = new Set();
+        try {
+          const wlRes = await api.wishlist.get();
+          wishlistIds = new Set(wlRes.data.products.map(p => p._id));
+        } catch (_) {}
+
+        container.innerHTML = products.map(p => productCardHTML(p, wishlistIds)).join('');
+
+        setupCatalogProductCardListeners();
+        renderPagination(res.pagination.pages);
+      } catch (err) {
+        container.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:var(--text-muted);">${err.message || 'Error loading products catalog.'}</p>`;
+      }
+    }
+
+    function setupCatalogProductCardListeners() {
+      document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          const productId = btn.getAttribute('data-product-id');
+          await addToCartHelper(productId, btn);
+        });
+      });
+
+      document.querySelectorAll('.wishlist-btn').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          const productId = btn.getAttribute('data-product-id');
+          await toggleWishlist(productId, btn);
+        });
+      });
+    }
+
+    function renderPagination(totalPages) {
+      const container = document.getElementById('pagination-container');
+      if (!container || totalPages <= 1) {
+        container.innerHTML = '';
+        return;
+      }
+
+      let html = '';
+      for (let i = 1; i <= totalPages; i++) {
+        const activeClass = i === currentPage ? 'btn-primary' : 'btn-ghost';
+        html += `<button class="btn btn-sm ${activeClass} page-num-btn" data-page="${i}">${i}</button>`;
+      }
+
+      container.innerHTML = html;
+
+      container.querySelectorAll('.page-num-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          currentPage = Number(btn.getAttribute('data-page'));
+          await loadCatalog();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+    }
+
+    function presetFiltersFromUrl() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const catPreset = urlParams.get('category');
+      if (catPreset) {
+        const checkbox = document.querySelector(`[data-filter="category"][value="${catPreset}"]`);
+        if (checkbox) checkbox.checked = true;
+      }
+      
+      const searchPreset = urlParams.get('search');
+      if (searchPreset) {
+        const input = document.querySelector('[data-search-input]');
+        if (input) input.value = searchPreset;
+      }
+    }
+
+    function clearAllFilters() {
+      document.querySelectorAll('[data-filter]').forEach(el => {
+        if (el.type === 'checkbox' || el.type === 'radio') {
+          el.checked = false;
+        } else {
+          el.value = '';
+        }
+      });
+      document.querySelectorAll('[name="price-preset"]').forEach(radio => radio.checked = false);
+      const input = document.querySelector('[data-search-input]');
+      if (input) input.value = '';
+
+      // Clear search URL
+      if (window.location.search) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }
+  </script>
+</body>
+</html>

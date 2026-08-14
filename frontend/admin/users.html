@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage User Accounts — DIGItal Duniya</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+  <div class="admin-layout">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-logo">
+        <a href="../index.html" class="nav-logo" style="text-decoration:none;">
+          <span style="color:var(--text-primary);">DIGItal</span><span>Duniya</span>
+        </a>
+      </div>
+      <nav>
+        <a href="dashboard.html" class="admin-nav-link">📊 Dashboard</a>
+        <a href="products.html" class="admin-nav-link">📦 Products Catalog</a>
+        <a href="orders.html" class="admin-nav-link">🛒 Order Lists</a>
+        <a href="users.html" class="admin-nav-link active">👥 User Accounts</a>
+        <a href="feedback.html" class="admin-nav-link">⭐️ Customer Reviews</a>
+        <a href="messages.html" class="admin-nav-link">✉️ Contacts &amp; Queries</a>
+        <div style="border-top: 1px solid var(--border); margin-top:20px; padding-top:10px;">
+          <a href="../index.html" class="admin-nav-link" style="color: var(--teal);">🏠 Return to Store</a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <div class="admin-header">
+        <div>
+          <h1 style="font-size:1.8rem; font-weight:800;">Manage Users</h1>
+          <p style="color:var(--text-muted); font-size:0.9rem; margin-top:4px;">View registered customer accounts and modify authorization roles.</p>
+        </div>
+      </div>
+
+      <!-- Users Table -->
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email Address</th>
+              <th>Registration Date</th>
+              <th>Current Role</th>
+              <th>Change Role</th>
+            </tr>
+          </thead>
+          <tbody id="admin-users-table-body">
+            <!-- Loaded dynamically via js/admin.js -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="../js/admin.js"></script>
+</body>
+</html>

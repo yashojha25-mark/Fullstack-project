@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DIGItal Duniya — Discover What's New. Explore What's Next.</title>
+  <meta name="description" content="Discover premium technology and lifestyle products at DIGItal Duniya. Experience high quality electronics and daily accessories.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar" id="main-navbar">
+    <div class="container navbar-inner">
+      <a href="index.html" class="nav-logo">
+        <span>DIGItal</span><span>Duniya</span>
+      </a>
+
+      <!-- Hamburger menu (Mobile) -->
+      <button class="hamburger" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-links" id="nav-menu">
+        <li><a href="index.html" class="nav-link active" data-i18n="home">Home</a></li>
+        <li><a href="products.html" class="nav-link" data-i18n="products">Products</a></li>
+        <li><a href="about.html" class="nav-link" data-i18n="about">About</a></li>
+        <li><a href="contact.html" class="nav-link" data-i18n="contact">Contact</a></li>
+        <li><a href="feedback.html" class="nav-link" data-i18n="feedback">Feedback</a></li>
+      </ul>
+
+      <!-- Search bar -->
+      <div class="nav-search">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Search products..." data-search-input data-i18n="search">
+        <div class="suggestion-box" data-search-suggestions style="position: absolute; width: 100%; top: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); z-index: 100; max-height: 250px; overflow-y: auto; box-shadow: var(--shadow-md);"></div>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Language selector -->
+        <select class="btn btn-ghost btn-sm" id="lang-selector" data-lang-select style="padding: 4px 8px; font-weight:600;">
+          <option value="en">EN</option>
+          <option value="hi">हिन्दी</option>
+        </select>
+
+        <!-- Theme selector -->
+        <button class="nav-icon-btn" id="theme-toggle" data-theme-icon title="Toggle Theme">🌙</button>
+
+        <!-- Guest links -->
+        <a href="login.html" class="btn btn-outline btn-sm" data-auth="guest" data-i18n="login">Login</a>
+        <a href="signup.html" class="btn btn-primary btn-sm" data-auth="guest" data-i18n="signup">Sign Up</a>
+
+        <!-- Authenticated links -->
+        <a href="wishlist.html" class="nav-icon-btn hidden" data-auth="user" title="Wishlist">
+          ❤️
+        </a>
+        <a href="cart.html" class="nav-icon-btn hidden" data-auth="user" title="Cart">
+          🛒
+          <span class="nav-badge" data-cart-count style="display: none;">0</span>
+        </a>
+        
+        <!-- Profile Dropdown mock / direct link -->
+        <a href="profile.html" class="nav-link hidden" data-auth="user" style="font-weight:600;"><span data-user-name>User</span></a>
+        <a href="orders.html" class="nav-link hidden" data-auth="user" data-i18n="orders">Orders</a>
+        <a href="#" class="btn btn-ghost btn-sm hidden" id="logout-btn" data-auth="user" data-i18n="logout">Logout</a>
+
+        <!-- Admin dashboard link -->
+        <a href="admin/dashboard.html" class="btn btn-teal btn-sm hidden" data-auth="admin" data-i18n="adminDashboard">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="container hero-inner">
+      <div>
+        <p class="hero-eyebrow">Discover What's New. Explore What's Next.</p>
+        <h1 class="hero-title">Your Premium Gateway to Technology & Lifestyle</h1>
+        <p class="hero-subtitle">Experience high-quality design, handpicked items, and dynamic catalog updates curated for your everyday productivity.</p>
+        <div class="hero-actions">
+          <a href="products.html" class="btn btn-primary btn-lg">Explore Products</a>
+          <a href="about.html" class="btn btn-ghost btn-lg">Learn More</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-value">12+</div>
+            <div class="hero-stat-label">Trending Products</div>
+          </div>
+          <div>
+            <div class="hero-stat-value">100%</div>
+            <div class="hero-stat-label">Secure Delivery</div>
+          </div>
+          <div>
+            <div class="hero-stat-value">4.8 ★</div>
+            <div class="hero-stat-label">Average Rating</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-image-wrap">
+        <img class="hero-image" src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800" alt="Tech workspace with smart devices">
+        <div class="hero-float-card card-1">
+          <span style="font-size: 1.5rem;">🔥</span>
+          <div>
+            <div style="font-weight: 700; font-size: 0.9rem;">Trending Choice</div>
+            <div style="font-size: 0.75rem; color: var(--text-secondary);">Sony Headphones</div>
+          </div>
+        </div>
+        <div class="hero-float-card card-2">
+          <span style="font-size: 1.5rem;">💎</span>
+          <div>
+            <div style="font-weight: 700; font-size: 0.9rem;">Premium Build</div>
+            <div style="font-size: 0.75rem; color: var(--text-secondary);">MacBook Air M3</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+
+    <!-- Categories Grid -->
+    <section class="section">
+      <div class="section-title" data-i18n="categories">Browse Categories</div>
+      <div class="section-subtitle">Find premium choices handpicked just for you</div>
+      <div class="categories-grid" id="categories-container">
+        <div class="category-card" data-category="Technology">
+          <div class="category-icon">💻</div>
+          <div class="category-name">Technology</div>
+          <div class="category-count">Gadgets & Gear</div>
+        </div>
+        <div class="category-card" data-category="Fashion">
+          <div class="category-icon">👟</div>
+          <div class="category-name">Fashion</div>
+          <div class="category-count">Retro Styles</div>
+        </div>
+        <div class="category-card" data-category="Home">
+          <div class="category-icon">🛋️</div>
+          <div class="category-name">Home</div>
+          <div class="category-count">Modern Comfort</div>
+        </div>
+        <div class="category-card" data-category="Lifestyle">
+          <div class="category-icon">🎒</div>
+          <div class="category-name">Lifestyle</div>
+          <div class="category-count">Everyday Carry</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trending Products -->
+    <section class="section">
+      <div class="section-title">Trending Products</div>
+      <div class="section-subtitle">The hottest choices right now</div>
+      <div class="products-grid" id="trending-products-container">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- New Arrivals -->
+    <section class="section">
+      <div class="section-title">New Arrivals</div>
+      <div class="section-subtitle">Freshly added to the catalog</div>
+      <div class="products-grid" id="new-arrivals-container">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- Popular Products -->
+    <section class="section">
+      <div class="section-title">Popular Choices</div>
+      <div class="section-subtitle">Highest rated products by our customers</div>
+      <div class="products-grid" id="popular-products-container">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- Recently Viewed Products -->
+    <section class="section hidden" id="recently-viewed-section">
+      <div class="section-title">Recently Viewed</div>
+      <div class="section-subtitle">Picked up where you left off</div>
+      <div class="products-grid" id="recently-viewed-container">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="section">
+      <div class="section-title" style="text-align: center;">Why Choose DIGItal Duniya?</div>
+      <p style="text-align: center; color: var(--text-secondary); margin-bottom: 48px; max-width: 600px; margin-left: auto; margin-right: auto;">
+        We combine technology with smart design, ensuring high customer satisfaction, fast delivery, and robust customer service.
+      </p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🚚</div>
+          <h4 class="feature-title">Free & Fast Delivery</h4>
+          <p class="feature-desc">Free shipping on all orders above ₹999 across India with tracking.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h4 class="feature-title">Secure Payments</h4>
+          <p class="feature-desc">Multiple options with cash-on-delivery support and transaction validation.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⭐️</div>
+          <h4 class="feature-title">Top Rated Quality</h4>
+          <p class="feature-desc">Curated catalog from trusted global manufacturers with full specs.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💬</div>
+          <h4 class="feature-title">24/7 Support</h4>
+          <p class="feature-desc">Always-on contact form to drop inquiries and feedback.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Customer Reviews -->
+    <section class="section" style="background: var(--surface); border-radius: var(--radius-lg); padding: 60px 40px; border: 1px solid var(--border);">
+      <div class="section-title" style="text-align: center;">What Our Customers Say</div>
+      <div class="section-subtitle" style="text-align: center; margin-bottom: 48px;">Honest reviews from real buyers</div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+        <div style="background: var(--bg); padding: 24px; border-radius: var(--radius-md);">
+          <div style="color: #f59e0b; font-size: 1.1rem; margin-bottom: 12px;">★★★★★</div>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px;">
+            "The Sony WH-1000XM5 headphones are absolutely incredible! The active noise cancellation is next level, and the delivery was fast."
+          </p>
+          <strong style="font-size: 0.88rem;">Rohan Sharma</strong>
+        </div>
+        <div style="background: var(--bg); padding: 24px; border-radius: var(--radius-md);">
+          <div style="color: #f59e0b; font-size: 1.1rem; margin-bottom: 12px;">★★★★★</div>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px;">
+            "Super clean workspace mouse. Logitech MX Master 3S makes coding for hours extremely comfortable. High-quality platform!"
+          </p>
+          <strong style="font-size: 0.88rem;">Priya Patel</strong>
+        </div>
+        <div style="background: var(--bg); padding: 24px; border-radius: var(--radius-md);">
+          <div style="color: #f59e0b; font-size: 1.1rem; margin-bottom: 12px;">★★★★☆</div>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px;">
+            "Stunning desk organization items! The Milton flask keeps my coffee hot all day. Definitely going to order again."
+          </p>
+          <strong style="font-size: 0.88rem;">Aarav Malhotra</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="section">
+      <div class="newsletter">
+        <h2>Join Our Newsletter</h2>
+        <p>Get weekly updates on hot technology releases and new trending arrivals.</p>
+        <form class="newsletter-form" id="newsletter-form">
+          <input type="email" placeholder="Enter your email address" required>
+          <button type="submit" class="btn">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="nav-logo">
+            <span>DIGItal</span><span>Duniya</span>
+          </a>
+          <p class="footer-brand-desc">"Discover What's New. Explore What's Next."<br>A fully responsive e-commerce application displaying both technology and lifestyle items.</p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social">FB</a>
+            <a href="#" class="footer-social">TW</a>
+            <a href="#" class="footer-social">IG</a>
+            <a href="#" class="footer-social">LN</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="products.html">Product Catalog</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Support</a></li>
+            <li><a href="feedback.html">Give Feedback</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Customer Service</h4>
+          <ul class="footer-links">
+            <li><a href="cart.html">Shopping Cart</a></li>
+            <li><a href="wishlist.html">Your Wishlist</a></li>
+            <li><a href="orders.html">Track Orders</a></li>
+            <li><a href="profile.html">Your Profile</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Info</h4>
+          <p style="font-size:0.87rem; color:var(--text-secondary); line-height: 1.6; margin-bottom: 8px;">
+            📍 123 Tech Avenue, Sector 62, Noida, India<br>
+            📞 +91 98765 43210<br>
+            ✉️ support@digitalduniya.com
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 DIGItal Duniya. All rights reserved.</p>
+        <p>Built with Vanilla JavaScript, CSS, Node.js & MongoDB.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module">
+    import api from './js/api.js';
+    import { updateNavAuth, logout } from './js/auth.js';
+    import { getTheme, applyTheme, toggleTheme } from './js/theme.js';
+    import { getLang, setLang, applyLang } from './js/language.js';
+    import { productCardHTML, skeletonCards, toggleWishlist, addToCartHelper, updateCartBadge } from './js/products.js';
+    import './js/search.js';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // 1. Initial State Checks
+      const user = await updateNavAuth();
+      await updateCartBadge();
+
+      // 2. Load featured products
+      const trendingContainer = document.getElementById('trending-products-container');
+      const newArrivalsContainer = document.getElementById('new-arrivals-container');
+      const popularContainer = document.getElementById('popular-products-container');
+
+      if (trendingContainer && newArrivalsContainer && popularContainer) {
+        trendingContainer.innerHTML = skeletonCards(4);
+        newArrivalsContainer.innerHTML = skeletonCards(4);
+        popularContainer.innerHTML = skeletonCards(4);
+
+        try {
+          const res = await api.products.getFeatured();
+          const { trending, newArrivals, popular } = res.data;
+
+          // Fetch wishlist IDs to mark hearts
+          let wishlistIds = new Set();
+          if (user) {
+            try {
+              const wlRes = await api.wishlist.get();
+              wishlistIds = new Set(wlRes.data.products.map(p => p._id));
+            } catch (_) {}
+          }
+
+          trendingContainer.innerHTML = trending.map(p => productCardHTML(p, wishlistIds)).join('');
+          newArrivalsContainer.innerHTML = newArrivals.map(p => productCardHTML(p, wishlistIds)).join('');
+          popularContainer.innerHTML = popular.map(p => productCardHTML(p, wishlistIds)).join('');
+
+          setupHomeProductCardListeners(wishlistIds);
+        } catch (err) {
+          console.error(err);
+          const errMsg = '<p style="grid-column: 1/-1; text-align:center; color:var(--text-muted);">Failed to load products. Make sure backend is running.</p>';
+          trendingContainer.innerHTML = errMsg;
+          newArrivalsContainer.innerHTML = errMsg;
+          popularContainer.innerHTML = errMsg;
+        }
+      }
+
+      // 3. Load recently viewed products
+      loadRecentlyViewedHome();
+
+      // 4. Setup Theme Toggle Event
+      document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
+
+      // 5. Setup Language Select Event
+      document.getElementById('lang-selector')?.addEventListener('change', (e) => {
+        setLang(e.target.value);
+      });
+
+      // 6. Setup Mobile Menu Navigation
+      const navToggle = document.getElementById('nav-toggle');
+      const navMenu = document.getElementById('nav-menu');
+      navToggle?.addEventListener('click', () => {
+        navMenu?.classList.toggle('open');
+      });
+
+      // 7. Setup Logout Button Event
+      document.getElementById('logout-btn')?.addEventListener('click', async (e) => {
+        e.preventDefault();
+        await logout();
+      });
+
+      // 8. Newsletter Event
+      document.getElementById('newsletter-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Thank you for subscribing to DIGItal Duniya!');
+        e.target.reset();
+      });
+    });
+
+    function setupHomeProductCardListeners(wishlistIds) {
+      document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          const productId = btn.getAttribute('data-product-id');
+          await addToCartHelper(productId, btn);
+        });
+      });
+
+      document.querySelectorAll('.wishlist-btn').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          const productId = btn.getAttribute('data-product-id');
+          await toggleWishlist(productId, btn);
+        });
+      });
+    }
+
+    async function loadRecentlyViewedHome() {
+      // Load recently viewed IDs from localstorage
+      let ids = [];
+      try {
+        ids = JSON.parse(localStorage.getItem('dd_recently_viewed')) || [];
+      } catch (_) {}
+
+      if (ids.length === 0) return;
+
+      const rvSection = document.getElementById('recently-viewed-section');
+      const rvContainer = document.getElementById('recently-viewed-container');
+
+      if (rvSection && rvContainer) {
+        rvSection.classList.remove('hidden');
+        rvContainer.innerHTML = skeletonCards(Math.min(ids.length, 4));
+
+        try {
+          // Fetch products details for these IDs
+          const prods = await Promise.all(
+            ids.slice(0, 4).map(async (id) => {
+              try {
+                const res = await api.products.getById(id);
+                return res.data;
+              } catch (_) { return null; }
+            })
+          );
+
+          const validProds = prods.filter(Boolean);
+          if (validProds.length === 0) {
+            rvSection.classList.add('hidden');
+            return;
+          }
+
+          rvContainer.innerHTML = validProds.map(p => productCardHTML(p)).join('');
+
+          // Set up listeners for recently viewed cards
+          rvContainer.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+              await addToCartHelper(btn.getAttribute('data-product-id'), btn);
+            });
+          });
+          rvContainer.querySelectorAll('.wishlist-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+              await toggleWishlist(btn.getAttribute('data-product-id'), btn);
+            });
+          });
+        } catch (_) {
+          rvSection.classList.add('hidden');
+        }
+      }
+    }
+  </script>
+</body>
+</html>

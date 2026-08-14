@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Products Catalog — DIGItal Duniya</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+  <div class="admin-layout">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-logo">
+        <a href="../index.html" class="nav-logo" style="text-decoration:none;">
+          <span style="color:var(--text-primary);">DIGItal</span><span style="color:var(--accent);">Duniya</span>
+        </a>
+      </div>
+      <nav>
+        <a href="dashboard.html" class="admin-nav-link">📊 Dashboard</a>
+        <a href="products.html" class="admin-nav-link active">📦 Products Catalog</a>
+        <a href="orders.html" class="admin-nav-link">🛒 Order Lists</a>
+        <a href="users.html" class="admin-nav-link">👥 User Accounts</a>
+        <a href="feedback.html" class="admin-nav-link">⭐️ Customer Reviews</a>
+        <a href="messages.html" class="admin-nav-link">✉️ Contacts &amp; Queries</a>
+        <div style="border-top: 1px solid var(--border); margin-top:20px; padding-top:10px;">
+          <a href="../index.html" class="admin-nav-link" style="color: var(--teal);">🏠 Return to Store</a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <div class="admin-header">
+        <div>
+          <h1 style="font-size:1.8rem; font-weight:800;">Manage Products</h1>
+          <p style="color:var(--text-muted); font-size:0.9rem; margin-top:4px;">Add, edit, or delete items in the store database.</p>
+        </div>
+        <button class="btn btn-primary" id="add-product-btn">＋ Add Product</button>
+      </div>
+
+      <!-- Products Table -->
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th style="width: 80px;">Image</th>
+              <th>Product Name</th>
+              <th>Brand</th>
+              <th>Category</th>
+              <th>Price Info</th>
+              <th>Stock Qty</th>
+              <th>Rating</th>
+              <th>Status</th>
+              <th style="width: 150px;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-products-table-body">
+            <!-- Loaded dynamically via js/admin.js -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add/Edit Product Modal Dialog -->
+  <div class="modal-overlay hidden" id="admin-product-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-title-text">Add Trending Product</h3>
+        <button class="btn btn-icon" id="cancel-product-btn" style="font-size: 1.5rem;">&times;</button>
+      </div>
+      
+      <form id="admin-product-form">
+        <!-- Hidden input for ID editing -->
+        <input type="hidden" id="prod-id">
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="prod-name">Product Name *</label>
+            <input type="text" class="form-input" id="prod-name" required placeholder="e.g. Sony WH-1000XM5">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="prod-brand">Brand *</label>
+            <input type="text" class="form-input" id="prod-brand" required placeholder="e.g. Sony">
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="prod-category">Category *</label>
+            <select class="form-input" id="prod-category" required>
+              <option value="">Select category</option>
+              <option value="Technology">Technology</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Home">Home</option>
+              <option value="Lifestyle">Lifestyle</option>
+              <option value="Gaming">Gaming</option>
+              <option value="Accessories">Accessories</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="prod-image">Image URL</label>
+            <input type="url" class="form-input" id="prod-image" placeholder="https://images.unsplash.com/...">
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="prod-price">Original Price (₹) *</label>
+            <input type="number" class="form-input" id="prod-price" required min="1" placeholder="e.g. 29999">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="prod-discount">Discount Percentage (%)</label>
+            <input type="number" class="form-input" id="prod-discount" min="0" max="99" placeholder="e.g. 15">
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="prod-stock">Available Stock Qty *</label>
+            <input type="number" class="form-input" id="prod-stock" required min="0" placeholder="e.g. 25">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="prod-colors">Colors (Comma separated)</label>
+            <input type="text" class="form-input" id="prod-colors" placeholder="e.g. Black, Silver, Blue">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="prod-short-desc">Short Summary (Featured preview)</label>
+          <input type="text" class="form-input" id="prod-short-desc" placeholder="Brief tagline or description snippet...">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="prod-desc">Detailed Description *</label>
+          <textarea class="form-input" id="prod-desc" rows="3" required placeholder="Full product details, utility specifications, details..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="prod-specs">Technical Specifications (One entry per line, Format: Key: Value)</label>
+          <textarea class="form-input" id="prod-specs" rows="3" placeholder="Battery: 30 hours&#10;Connectivity: Bluetooth 5.2&#10;Weight: 250g"></textarea>
+        </div>
+
+        <div style="display:flex; gap:24px; margin-bottom:24px;">
+          <label class="form-check">
+            <input type="checkbox" id="prod-new">
+            <span style="font-size:0.88rem; font-weight:600;">Mark as New Arrival</span>
+          </label>
+          <label class="form-check">
+            <input type="checkbox" id="prod-trending">
+            <span style="font-size:0.88rem; font-weight:600;">Mark as Trending</span>
+          </label>
+        </div>
+
+        <div style="display:flex; gap:12px; justify-content:flex-end;">
+          <button type="button" class="btn btn-outline" onclick="document.getElementById('admin-product-modal').classList.add('hidden')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="../js/admin.js"></script>
+</body>
+</html>

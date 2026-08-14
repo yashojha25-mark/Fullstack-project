@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — DIGItal Duniya</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+  <div class="admin-layout">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-logo">
+        <a href="../index.html" class="nav-logo" style="text-decoration:none;">
+          <span style="color:var(--text-primary);">DIGItal</span><span style="color:var(--accent);">Duniya</span>
+        </a>
+        <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; margin-top:4px;">Admin Control Panel</div>
+      </div>
+      <nav>
+        <a href="dashboard.html" class="admin-nav-link active">📊 Dashboard</a>
+        <a href="products.html" class="admin-nav-link">📦 Products Catalog</a>
+        <a href="orders.html" class="admin-nav-link">🛒 Order Lists</a>
+        <a href="users.html" class="admin-nav-link">👥 User Accounts</a>
+        <a href="feedback.html" class="admin-nav-link">⭐️ Customer Reviews</a>
+        <a href="messages.html" class="admin-nav-link">✉️ Contacts &amp; Queries</a>
+        <div style="border-top: 1px solid var(--border); margin-top:20px; padding-top:10px;">
+          <a href="../index.html" class="admin-nav-link" style="color: var(--teal);">🏠 Return to Store</a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="admin-main">
+      
+      <!-- Top header banner -->
+      <div class="admin-header">
+        <div>
+          <h1 style="font-size:1.8rem; font-weight:800; color:var(--text-primary);">Dashboard Statistics</h1>
+          <p style="color:var(--text-muted); font-size:0.9rem; margin-top:4px;">Overview of performance metrics and inventory status.</p>
+        </div>
+        <div style="display:flex; gap:12px; align-items:center;">
+          <!-- Active Admin profile card -->
+          <div style="text-align:right;">
+            <strong style="display:block; font-size:0.9rem;">Administrator</strong>
+            <span style="font-size:0.75rem; color:var(--teal); font-weight:700;">Role: ADMIN</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Numerical Metric Cards -->
+      <div class="stat-cards">
+        <div class="stat-card">
+          <div class="stat-card-value" id="stat-revenue">₹0</div>
+          <div class="stat-card-label">Total Revenue</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-value" id="stat-orders">0</div>
+          <div class="stat-card-label">Orders Placed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-value" id="stat-products">0</div>
+          <div class="stat-card-label">Active Products</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-value" id="stat-users">0</div>
+          <div class="stat-card-label">Registered Users</div>
+        </div>
+      </div>
+
+      <!-- Detail Grid Section -->
+      <div style="display:grid; grid-template-columns: 1.5fr 1fr; gap:32px; align-items:start;" class="admin-grid-2">
+        
+        <!-- Left: Sales Distribution chart -->
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md); padding:28px;">
+          <h3 style="font-weight:700; margin-bottom:20px; font-size:1.1rem;">Order Status Breakdown</h3>
+          <div id="dashboard-chart">
+            <!-- Rendered via js/admin.js -->
+          </div>
+          
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-top:24px; border-top:1px solid var(--border); padding-top:20px;">
+            <div>
+              <span style="font-size:0.8rem; color:var(--text-muted);">PENDING SHIPMENTS</span>
+              <div style="font-size:1.5rem; font-weight:700; color:var(--accent);" id="stat-pending">0</div>
+            </div>
+            <div>
+              <span style="font-size:0.8rem; color:var(--text-muted);">DELIVERED ORDERS</span>
+              <div style="font-size:1.5rem; font-weight:700; color:var(--teal);" id="stat-delivered">0</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Low Stock Alert list -->
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md); padding:28px;">
+          <h3 style="font-weight:700; margin-bottom:8px; font-size:1.1rem; color:#e65100;">⚠️ Low Stock Warnings</h3>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:20px;">Products needing immediate replenishment.</p>
+          <div class="low-stock-list" id="low-stock-container">
+            <!-- Loaded dynamically -->
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="../js/admin.js"></script>
+</body>
+</html>

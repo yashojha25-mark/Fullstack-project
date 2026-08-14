@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart &amp; Checkout — DIGItal Duniya</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/cart.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar" id="main-navbar">
+    <div class="container navbar-inner">
+      <a href="index.html" class="nav-logo">
+        <span>DIGItal</span><span>Duniya</span>
+      </a>
+
+      <button class="hamburger" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-links" id="nav-menu">
+        <li><a href="index.html" class="nav-link" data-i18n="home">Home</a></li>
+        <li><a href="products.html" class="nav-link" data-i18n="products">Products</a></li>
+        <li><a href="about.html" class="nav-link" data-i18n="about">About</a></li>
+        <li><a href="contact.html" class="nav-link" data-i18n="contact">Contact</a></li>
+        <li><a href="feedback.html" class="nav-link" data-i18n="feedback">Feedback</a></li>
+      </ul>
+
+      <div class="nav-search">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Search products..." data-search-input data-i18n="search">
+        <div class="suggestion-box" data-search-suggestions style="position: absolute; width: 100%; top: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); z-index: 100;"></div>
+      </div>
+
+      <div class="nav-actions">
+        <select class="btn btn-ghost btn-sm" id="lang-selector" data-lang-select>
+          <option value="en">EN</option>
+          <option value="hi">हिन्दी</option>
+        </select>
+        <button class="nav-icon-btn" id="theme-toggle" data-theme-icon>🌙</button>
+        <a href="login.html" class="btn btn-outline btn-sm" data-auth="guest" data-i18n="login">Login</a>
+        <a href="signup.html" class="btn btn-primary btn-sm" data-auth="guest" data-i18n="signup">Sign Up</a>
+        <a href="wishlist.html" class="nav-icon-btn hidden" data-auth="user">❤️</a>
+        <a href="cart.html" class="nav-icon-btn hidden" data-auth="user">
+          🛒<span class="nav-badge" data-cart-count style="display: none;">0</span>
+        </a>
+        <a href="profile.html" class="nav-link hidden" data-auth="user"><span data-user-name>User</span></a>
+        <a href="orders.html" class="nav-link hidden" data-auth="user" data-i18n="orders">Orders</a>
+        <a href="#" class="btn btn-ghost btn-sm hidden" id="logout-btn" data-auth="user" data-i18n="logout">Logout</a>
+        <a href="admin/dashboard.html" class="btn btn-teal btn-sm hidden" data-auth="admin" data-i18n="adminDashboard">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="sep">&rsaquo;</span>
+      <span class="current">Shopping Cart</span>
+    </div>
+  </div>
+
+  <!-- Page Content -->
+  <main class="container section" style="padding-top: 16px;">
+    
+    <!-- Checkout Steps Indicator -->
+    <div class="checkout-steps hidden" id="checkout-flow-container">
+      <div class="checkout-step active" id="step-1-indicator">
+        <div class="step-circle">1</div>
+        <span class="step-label">Cart</span>
+      </div>
+      <div class="step-line" id="step-1-line"></div>
+      <div class="checkout-step" id="step-2-indicator">
+        <div class="step-circle">2</div>
+        <span class="step-label">Address</span>
+      </div>
+      <div class="step-line" id="step-2-line"></div>
+      <div class="checkout-step" id="step-3-indicator">
+        <div class="step-circle">3</div>
+        <span class="step-label">Summary</span>
+      </div>
+      <div class="step-line" id="step-3-line"></div>
+      <div class="checkout-step" id="step-4-indicator">
+        <div class="step-circle">4</div>
+        <span class="step-label">Payment</span>
+      </div>
+    </div>
+
+    <!-- Back Button -->
+    <button class="btn btn-ghost btn-sm hidden" id="checkout-back-btn" style="margin-bottom: 20px;">
+      &larr; Back to previous step
+    </button>
+
+    <!-- Layout Grid -->
+    <div class="cart-layout" id="cart-page-content">
+      
+      <!-- Left side (Checkout Wizard views) -->
+      <div>
+        
+        <!-- Step 1: Cart View -->
+        <div id="step-cart-view" class="cart-items-wrap">
+          <div id="cart-items-container">
+            <!-- Loaded dynamically -->
+          </div>
+        </div>
+
+        <!-- Step 2: Shipping Address View -->
+        <div id="step-address-view" class="hidden">
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md); padding:24px;">
+            <h3 style="font-weight:700; margin-bottom:20px;">Shipping Address</h3>
+            
+            <form id="address-form">
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="addr-name">Full Name</label>
+                  <input type="text" class="form-input" id="addr-name" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="addr-phone">Phone Number</label>
+                  <input type="tel" class="form-input" id="addr-phone" placeholder="9876543210" pattern="[0-9]{10}" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="addr-street">Street Address</label>
+                <input type="text" class="form-input" id="addr-street" placeholder="Flat No, Apartment, Street Name" required>
+              </div>
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="addr-city">City</label>
+                  <input type="text" class="form-input" id="addr-city" placeholder="Noida" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="addr-state">State</label>
+                  <input type="text" class="form-input" id="addr-state" placeholder="Uttar Pradesh" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="addr-pincode">Pincode</label>
+                <input type="text" class="form-input" id="addr-pincode" placeholder="201301" pattern="[0-9]{6}" required>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="margin-top:16px;">Next: Order Summary &rarr;</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Step 3: Order Summary Confirmation -->
+        <div id="step-summary-view" class="hidden">
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md); padding:24px; margin-bottom:24px;">
+            <h3 style="font-weight:700; margin-bottom:16px;">Confirm Order Details</h3>
+            
+            <div style="margin-bottom:20px;">
+              <h4 style="font-weight:600; font-size:0.95rem; margin-bottom:8px; border-bottom:1px solid var(--border); padding-bottom:6px;">Delivery Details</h4>
+              <div id="address-confirmation-details" style="font-size:0.9rem; line-height:1.6; color:var(--text-secondary);"></div>
+            </div>
+
+            <div>
+              <h4 style="font-weight:600; font-size:0.95rem; margin-bottom:8px; border-bottom:1px solid var(--border); padding-bottom:6px;">Items Summary</h4>
+              <div id="items-confirmation-details"></div>
+            </div>
+          </div>
+          <button class="btn btn-primary" id="confirm-summary-btn" onclick="document.getElementById('checkout-next-btn').click();">Next: Choose Payment &rarr;</button>
+        </div>
+
+        <!-- Step 4: Payment Selection View -->
+        <div id="step-payment-view" class="hidden">
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md); padding:24px; margin-bottom:24px;">
+            <h3 style="font-weight:700; margin-bottom:20px;">Select Payment Method</h3>
+            
+            <!-- Cash on Delivery (COD) -->
+            <label class="payment-option selected">
+              <input type="radio" name="payment-method" value="COD" checked>
+              <div class="payment-icon">💵</div>
+              <div>
+                <span class="payment-label">Cash on Delivery (COD)</span>
+                <p class="payment-desc">Pay cash when the order gets delivered to your door.</p>
+              </div>
+            </label>
+
+            <!-- UPI (Abstracted) -->
+            <label class="payment-option">
+              <input type="radio" name="payment-method" value="UPI">
+              <div class="payment-icon">📱</div>
+              <div>
+                <span class="payment-label">UPI (BHIM, Google Pay, PhonePe)</span>
+                <p class="payment-desc">Pay instantly using any UPI app. (Integration pending)</p>
+              </div>
+            </label>
+
+            <!-- Card (Abstracted) -->
+            <label class="payment-option">
+              <input type="radio" name="payment-method" value="Card">
+              <div class="payment-icon">💳</div>
+              <div>
+                <span class="payment-label">Credit / Debit Card</span>
+                <p class="payment-desc">Visa, MasterCard, RuPay, Maestro. (Integration pending)</p>
+              </div>
+            </label>
+
+            <div class="form-group" style="margin-top:20px;">
+              <label class="form-label" for="order-notes">Additional Order Notes (Optional)</label>
+              <textarea class="form-input" id="order-notes" rows="2" placeholder="e.g. Leave package with neighbor, ring bell twice"></textarea>
+            </div>
+          </div>
+
+          <button class="btn btn-teal btn-lg" id="place-order-btn" style="width:100%; justify-content:center;">Confirm &amp; Place Order</button>
+        </div>
+
+      </div>
+
+      <!-- Right side Summary stick block -->
+      <div class="cart-summary" id="cart-summary-container">
+        <!-- Loaded dynamically -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-bottom" style="border:none; padding:0;">
+        <p>&copy; 2026 DIGItal Duniya. All rights reserved.</p>
+        <p>Dynamic E-Commerce Stack checkout.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module" src="js/cart.js"></script>
+  <script type="module">
+    import { toggleTheme } from './js/theme.js';
+    import { setLang } from './js/language.js';
+    import { logout } from './js/auth.js';
+    import './js/search.js';
+
+    document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
+    document.getElementById('lang-selector')?.addEventListener('change', (e) => {
+      setLang(e.target.value);
+    });
+
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    navToggle?.addEventListener('click', () => {
+      navMenu?.classList.toggle('open');
+    });
+
+    document.getElementById('logout-btn')?.addEventListener('click', async (e) => {
+      e.preventDefault();
+      await logout();
+    });
+
+    // Payment options border highlighted visual check
+    document.querySelectorAll('.payment-option input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+        radio.closest('.payment-option').classList.add('selected');
+      });
+    });
+  </script>
+</body>
+</html>

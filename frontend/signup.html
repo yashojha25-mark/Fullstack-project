@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up — DIGItal Duniya</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <div class="auth-page">
+    <div class="auth-card">
+      <a href="index.html" class="auth-logo" style="text-decoration:none;">
+        <span style="color:var(--text-primary);">DIGItal</span><span style="color:var(--accent);">Duniya</span>
+      </a>
+      
+      <h2 class="auth-title">Create Account</h2>
+      <p class="auth-subtitle">Join us to access smart e-commerce features.</p>
+
+      <form id="signup-form">
+        <div class="form-group">
+          <label class="form-label" for="signup-name">Full Name</label>
+          <input type="text" class="form-input" id="signup-name" placeholder="John Doe" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="signup-email">Email Address</label>
+          <input type="email" class="form-input" id="signup-email" placeholder="name@example.com" required>
+        </div>
+
+        <div class="form-group" style="position:relative;">
+          <label class="form-label" for="signup-password">Password</label>
+          <input type="password" class="form-input" id="signup-password" placeholder="Min 6 characters" required>
+          <span class="password-toggle" id="pass-toggle" title="Toggle password visibility">👁️</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="signup-phone">Phone Number (Optional)</label>
+          <input type="tel" class="form-input" id="signup-phone" placeholder="9876543210" pattern="[0-9]{10}">
+        </div>
+
+        <div class="form-check" style="margin-bottom:24px;">
+          <input type="checkbox" id="terms-agree" required>
+          <label for="terms-agree">I agree to the Terms of Service & Privacy Policy</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg" style="width:100%; justify-content:center;">Create Account</button>
+      </form>
+
+      <div class="auth-switch">
+        Already have an account? <a href="login.html">Log In</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module">
+    import api from './js/api.js';
+    import { setCachedUser } from './js/auth.js';
+    import { showToast } from './js/products.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Toggle password visibility
+      const toggleBtn = document.getElementById('pass-toggle');
+      const passField = document.getElementById('signup-password');
+      toggleBtn?.addEventListener('click', () => {
+        const type = passField.type === 'password' ? 'text' : 'password';
+        passField.type = type;
+        toggleBtn.textContent = type === 'password' ? '👁️' : '🙈';
+      });
+
+      // Submit Form
+      document.getElementById('signup-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('signup-name').value.trim();
+        const email = document.getElementById('signup-email').value.trim();
+        const password = document.getElementById('signup-password').value;
+        const phone = document.getElementById('signup-phone').value.trim();
+
+        if (password.length < 6) {
+          showToast('Password must be at least 6 characters long', 'error');
+          return;
+        }
+
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Creating account...';
+
+        try {
+          const res = await api.auth.register({ name, email, password, phone });
+          setCachedUser(res.data);
+          showToast('Registration successful! Welcome 🎉', 'success');
+          
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 1000);
+        } catch (err) {
+          showToast(err.message || 'Registration failed. Try a different email.', 'error');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Create Account';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
