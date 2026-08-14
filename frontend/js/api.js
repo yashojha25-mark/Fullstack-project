@@ -3,7 +3,7 @@
  * All fetch calls go through apiRequest()
  */
 
-const BASE_URL = 'http://localhost:5000/api';
+const BASE_URL = '/api';
 
 /**
  * Core API request function
