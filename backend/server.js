@@ -27,7 +27,14 @@ const adminRoutes = require('./routes/adminRoutes');
 // Connect to database
 connectDB();
 
+const path = require('path');
 const app = express();
+// Serve static frontend files
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
+// Root route fallback for SPA or basic landing page
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
+});
 
 // Security middleware
 app.use(
@@ -101,6 +108,16 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/admin', adminRoutes);
 
 // 404 handler
+app.use((req, res, next) => {
+  // If the request is for an API route, forward to JSON 404 handler
+  if (req.path.startsWith('/api')) {
+    return next();
+  }
+  // Otherwise, serve the frontend entry point for client-side routing
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
+});
+
+// JSON 404 handler for API routes
 app.use('*', (req, res) => {
   res.status(404).json({ success: false, message: `Route ${req.originalUrl} not found` });
 });
