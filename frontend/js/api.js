@@ -3,7 +3,7 @@
  * All fetch calls go through apiRequest()
  */
 
-const BASE_URL = 'https://fullstack-project-4kcv.onrender.com/api';
+const BASE_URL = '/api';
 
 /**
  * Core API request function
